@@ -1,12 +1,13 @@
-package tictactoe;
 import java.util.Scanner;
-import java.util.Arrays;
+
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean player1Turn = true;
         boolean gameOver = false;
+        String winner = "";
+        boolean draw = false;
 
 
         String[][] table = {
@@ -31,13 +32,11 @@ public class Main {
                 int[] coordinates = new int[2];
                 for (int i = 0; i < 2; i++) {
                     coordinates[i] = scanner.nextInt();
-
                 }
 
                 int row = coordinates[0];
                 int column = coordinates[1];
                 int length = row < column ? column : row;
-
 
                 // Check if values are outside of range
                 while (row == 4 || column == 4 || row == 4 && column == 4) {
@@ -64,8 +63,51 @@ public class Main {
                     table[row-1][column-1] = sign;
                     player1Turn = !player1Turn;
                 }
+                // X win
+                if ( // Horizontal
+                        (table[0][0] == "X" && table[0][1] == "X" && table[0][2] == "X") ||
+                                (table[1][0] == "X" && table[1][1] == "X" && table[1][2] == "X") ||
+                                (table[2][0] == "X" && table[2][1] == "X" && table[2][2] == "X") ||
+                                // Vertical
+                                (table[0][0] == "X" && table[1][0] == "X" && table[2][0] == "X") ||
+                                (table[0][1] == "X" && table[1][1] == "X" && table[2][1] == "X") ||
+                                (table[0][2] == "X" && table[1][2] == "X" && table[2][2] == "X") ||
+                                // Cross
+                                (table[0][0] == "X" && table[1][1] == "X" && table[2][2] == "X") ||
+                                (table[0][2] == "X" && table[1][1] == "X" && table[2][0] == "X")
+                )
+                {
+                    winner = "X";
+                    gameOver = true;
+                }
+                // O win
+                if ( // Horizontal
+                        (table[0][0] == "O" && table[0][1] == "O" && table[0][2] == "O") ||
+                                (table[1][0] == "O" && table[1][1] == "O" && table[1][2] == "O") ||
+                                (table[2][0] == "O" && table[2][1] == "O" && table[2][2] == "O") ||
+                                // Vertical
+                                (table[0][0] == "O" && table[1][0] == "O" && table[2][0] == "O") ||
+                                (table[0][1] == "O" && table[1][1] == "O" && table[2][1] == "O") ||
+                                (table[0][2] == "O" && table[1][2] == "O" && table[2][2] == "O") ||
+                                // Cross
+                                (table[0][0] == "O" && table[1][1] == "O" && table[2][2] == "O") ||
+                                (table[0][2] == "O" && table[1][1] == "O" && table[2][0] == "O")
+                )
+                {
+                    winner = "O";
+                    gameOver = true;
+                }
+                // Draw
+                if ( // Horizontal
+                        (table[0][0] != " " && table[0][1] != " " && table[0][2] != " ") &&
+                                (table[1][0] != " " && table[1][1] != " " && table[1][2] != " ") &&
+                                (table[2][0] != " " && table[2][1] != " " && table[2][2] != " ")
+                )
+                {
+                    draw = true;
+                    gameOver = true;
+                }
 
-                // Error occours when input is 4, as table only goes from 0 - 2, and after calculating row 4 -1 = 3
             }
             // Print updated table;
             System.out.println("---------");
@@ -73,6 +115,16 @@ public class Main {
             System.out.println("|" + " " + table[1][0] + " " + table[1][1] + " " + table[1][2] + " " + "|");
             System.out.println("|" + " " + table[2][0] + " " + table[2][1] + " " + table[2][2] + " " + "|");
             System.out.println("---------");
+        }
+        // Winner message comes here
+        if (winner == "X") {
+            System.out.println("X wins");
+        }
+        if (winner == "O") {
+            System.out.println("O wins");
+        }
+        if (draw && winner == "") {
+            System.out.println("Draw");
         }
 
     }
