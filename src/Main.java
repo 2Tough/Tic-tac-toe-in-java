@@ -36,16 +36,16 @@ public class Main {
 
                 int row = coordinates[0];
                 int column = coordinates[1];
-                int length = row < column ? column : row;
+                //int length = row < column ? column : row;
 
                 // Check if values are outside of range
-                while (row == 4 || column == 4 || row == 4 && column == 4) {
+                while (row == 4 || column == 4) {
                     System.out.println("Coordinates should be from 1 to 3!");
                     for (int j = 0; j < 2; j++) {
                         coordinates[j] = scanner.nextInt();
                         row = coordinates[0];
                         column = coordinates[1];
-                        length = row < column ? column : row;
+
                     }
                     System.out.println("print new row: " +  row);
                     System.out.println("print new row: " +  column);
@@ -57,7 +57,7 @@ public class Main {
                         coordinates[k] = scanner.nextInt();
                         row = coordinates[0];
                         column = coordinates[1];
-                        length = row < column ? column : row;
+
                     }
                 } else {
                     table[row-1][column-1] = sign;
